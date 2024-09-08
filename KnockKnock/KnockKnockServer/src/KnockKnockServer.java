@@ -1,6 +1,3 @@
-package KnockKnockServer.src;
-
-
 import java.io.*;
 import java.net.*;
 
