@@ -7,3 +7,6 @@ For running the server and client code, you might need to run the program with a
 First, use ```javac [MainClassName].java```.
 
 Once the program has compiled, use ```java [MainClassName] <arg0> <arg1>``` .
+Arg0 (and sometimes arg1) are usually the portNumber and in case of the server the hostname 
+```java MainServer <hostname> <port>```
+```java Client <port>```
