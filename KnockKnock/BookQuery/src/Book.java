@@ -1,5 +1,3 @@
-package BookQuery.src;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
