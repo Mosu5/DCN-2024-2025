@@ -1,18 +1,18 @@
 package KnockKnockServer.src;
 
 
-import java.net.*;
 import java.io.*;
+import java.net.*;
 
 public class KnockKnockServer {
     public static void main(String[] args) throws IOException {
 
-        if (args.length != 1) {
-            System.err.println("Usage: java KnockKnockServer <port number>");
-            System.exit(1);
-        }
+        // if (args.length != 1) {
+        //     System.err.println("Usage: java KnockKnockServer <port number>");
+        //     System.exit(1);
+        // }
 
-        int portNumber = Integer.parseInt(args[0]);
+        int portNumber = 5440;
 
         try (
                 ServerSocket serverSocket = new ServerSocket(portNumber);
