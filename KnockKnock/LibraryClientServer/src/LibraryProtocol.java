@@ -34,19 +34,20 @@ public class LibraryProtocol {
 
     private String handleQuery(String theInput) throws Exception {
         // check if the input is a valid isbn
-        if (!theInput.matches("^(97(8|9))?[0-9]{10}$")) {
-            System.out.println("Invalid isbn");
-            return "Invalid isbn";
-        }
+        // if (!theInput.matches("^(97(8|9))?[0-9]{10}$")) {
+            // System.out.println("Invalid isbn");
+            // return "Invalid isbn";
+        // }
         String isbn = theInput;
         URL bookInfo = new URL("https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn);
         InputStream input = bookInfo.openStream();
         Reader reader = new InputStreamReader(input, "UTF-8");
         JsonResult result = new Gson().fromJson(reader, JsonResult.class);
         // convert result to string
-        String output = "ISBN: " + isbn + "\n"
-                + "Title: " + result.getBookDetail().getTitle() + "\n"
-                + "Subtitle: " + result.getBookDetail().getSubTitle() + "\n";
+        String output = "ISBN: " + isbn + "\t"
+                + "Title: " + result.getBookDetail().getTitle() + "\t"
+                + "Subtitle: " + result.getBookDetail().getSubTitle() + "\t"
+                + "Author: " + result.getBookDetail().getAuthors();
         return output;
     }
 }
