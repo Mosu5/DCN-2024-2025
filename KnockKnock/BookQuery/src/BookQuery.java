@@ -1,12 +1,10 @@
-
-
 import com.google.gson.*;
 import java.net.*;
 import java.io.*;
 
 public class BookQuery {
     public static void main(String[] args) throws Exception {
-        String isbn = args[0];
+        String isbn = "978-0-439-02348-1";
         URL bookInfo = new URL("https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn);
 
 //        BufferedReader in = new BufferedReader(

@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        ".",
+        "BookQuery\\src",
+        "KnockKnockMultiServer\\src"
+    ],
+    "java.project.referencedLibraries": [
+        "BookQuery\\lib\\gson-2.8.0.jar"
+    ]
+}
