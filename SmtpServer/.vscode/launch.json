@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "nl.avans.Main",
+            "projectName": "SMTPServerProject",
+            "console": "integratedTerminal"
+        }
+    ]
+ }
+ 
