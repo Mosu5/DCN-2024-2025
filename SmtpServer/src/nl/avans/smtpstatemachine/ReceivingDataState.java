@@ -4,8 +4,6 @@ import nl.avans.SmtpContext;
 
 public class ReceivingDataState implements SmtpStateInf {
     SmtpContext context;
-    boolean crReceived;
-    boolean dotReceived;
 
     public ReceivingDataState(SmtpContext context) {
         this.context = context;
@@ -13,7 +11,11 @@ public class ReceivingDataState implements SmtpStateInf {
 
     @Override
     public void Handle(String data) {
-        //handle the receiving of the mailbody
-        // "\r\n.\r\n" should return to the WaitForMailFromState
+        if (data.equals(".")) {
+            context.SendData("250 OK. Message accepted.");
+            context.SetNewState(new WaitForMailFromState(context));
+            return;
+        }
+        context.AddTextToBody(data);
     }
 }
