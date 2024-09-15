@@ -93,16 +93,17 @@ public class SecureClient {
             /// message up to the index
             if (commandString.equals("TOP") && messageIndex > 0) {
                 for (int i = 1; i <= messageIndex; i++) {
+                    System.err.println("Sending to Client: TOP " + i + " " + numberOfLines);
                     writer.println("TOP " + i + " " + numberOfLines);
                     String response;
                     while ((response = reader.readLine()) != null) {
                         if (response.startsWith("Subject: ")) {
+                            System.err.println("Server response: " + response);
                             allSubjects.append(response).append("\n"); // Append each response to the StringBuilder
                             break;
                         }
                     }
                 }
-                System.out.println(allSubjects.toString());
                 // Print all responses to a file
                 try (PrintWriter out = new PrintWriter("output.txt")) {
                     out.println(allSubjects.toString());
@@ -140,7 +141,7 @@ public class SecureClient {
         SecureClient client = new SecureClient();
         client.connect();
         // send a POP3 command to the server for the top 10 emails
-        client.sendCommand("TOP 20 0");
+        client.sendCommand("TOP 5 0");
         client.close();
     }
 }
