@@ -6,8 +6,16 @@ public class SecureClient {
     public static void main(String[] args) {
         String host = "outlook.office365.com";
         int port = 995;
-        String trustStorePath = "path/to/truststore.jks";
-        String trustStorePassword = "password";
+        String trustStorePath = "POP3Service\\Cert\\truststore.jks";
+        String trustStorePassword = System.getenv("TRUSTSTORE_PASSWORD");
+        
+        String email = System.getenv("EMAIL");
+        String emailPassword = System.getenv("EMAIL_PASSWORD");
+
+        if (trustStorePassword == null || emailPassword == null) {
+            System.err.println("Environment variables TRUSTSTORE_PASSWORD, EMAIL, and EMAIL_PASSWORD must be set.");
+            return;
+        }
 
         try {
             // Load the trust store
@@ -37,7 +45,8 @@ public class SecureClient {
                      PrintWriter writer = new PrintWriter(new OutputStreamWriter(sslSocket.getOutputStream()), true)) {
 
                     // Send a request to the server
-                    writer.println("Hello, Secure World!");
+                    writer.println("USER "+ email);
+                    writer.println("PASS " + emailPassword);
 
                     // Read the response from the server
                     String response;
