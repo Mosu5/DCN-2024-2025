@@ -26,3 +26,6 @@ replay_pid*
 # Certificates
 *.jks
 *.crt
+
+# test output
+output.txt

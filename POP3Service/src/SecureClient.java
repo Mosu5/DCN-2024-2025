@@ -69,29 +69,47 @@ public class SecureClient {
     public void sendCommand(String command) {
         try {
 
-            //check if the command is empty
-            if (command.isEmpty()) return;
-            
+            // check if the command is empty
+            if (command.isEmpty())
+                return;
 
-            // Send the command to the server
-            writer.println(command);
+            // Read the arguments of the command into an array
+            String[] commandArgs = command.split(" ");
+            String commandString = commandArgs[0];
+            int messageIndex = 0;
+            int numberOfLines = 0;
 
-            String response;
-            StringBuilder allResponses = new StringBuilder(); // Create a StringBuilder to store all responses
-            while ((response = reader.readLine()) != null) {
-                // System.out.println("Server response: " + response);
-                allResponses.append(response).append("\n"); // Append each response to the StringBuilder
-                if (response.equals(".")) {
-                    break;
+            if (commandArgs.length >= 2) {
+                messageIndex = Integer.parseInt(commandArgs[1]);
+            }
+
+            if (commandArgs.length >= 3) {
+                numberOfLines = Integer.parseInt(commandArgs[2]);
+            }
+
+            StringBuilder allSubjects = new StringBuilder(); // Create a StringBuilder to store all responses
+
+            /// if the command is TOP and the messageIndex is available, print all the
+            /// message up to the index
+            if (commandString.equals("TOP") && messageIndex > 0) {
+                for (int i = 1; i <= messageIndex; i++) {
+                    writer.println("TOP " + i + " " + numberOfLines);
+                    String response;
+                    while ((response = reader.readLine()) != null) {
+                        if (response.startsWith("Subject: ")) {
+                            allSubjects.append(response).append("\n"); // Append each response to the StringBuilder
+                            break;
+                        }
+                    }
                 }
+                System.out.println(allSubjects.toString());
+                // Print all responses to a file
+                try (PrintWriter out = new PrintWriter("output.txt")) {
+                    out.println(allSubjects.toString());
+                }
+                writer.flush(); // Flush the writer
             }
 
-            // Print all responses to a file
-            try (PrintWriter out = new PrintWriter("output.txt")) {
-                out.println(allResponses.toString());
-            }
-
-           
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,7 +121,10 @@ public class SecureClient {
             writer.println("QUIT");
             String response;
             while ((response = reader.readLine()) != null) {
-                System.out.println("Server response: " + response);
+                if (response.startsWith("+OK")) {
+                    System.out.println("Server response: " + response);
+                    break;
+                }
             }
 
             // Close the streams and socket
@@ -119,7 +140,7 @@ public class SecureClient {
         SecureClient client = new SecureClient();
         client.connect();
         // send a POP3 command to the server for the top 10 emails
-        client.sendCommand("TOP 10 0");
+        client.sendCommand("TOP 20 0");
         client.close();
     }
 }
