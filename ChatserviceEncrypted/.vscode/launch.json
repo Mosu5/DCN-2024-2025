@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ChatClient",
+            "request": "launch",
+            "mainClass": "ChatClient",
+            "projectName": "Chatservice_dc0d5871"
+        },
+        {
+            "type": "java",
+            "name": "ChatServer",
+            "request": "launch",
+            "mainClass": "ChatServer",
+            "projectName": "Chatservice_dc0d5871"
+        },
+        {
+            "type": "java",
+            "name": "Launch ChatServer",
+            "request": "launch",
+            "mainClass": "ChatServer",
+            "projectName": "ChatService",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "java",
+            "name": "Launch ChatClient",
+            "request": "launch",
+            "mainClass": "ChatClient",
+            "projectName": "your-project-name",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+  }
+  
